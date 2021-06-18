@@ -1,0 +1,15 @@
+{
+  "html.format.preserveNewLines": false,
+  "json.format.enable": false,
+  "scss.validate": false,
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+
+  "files.exclude": {
+    // "README.md": true,
+  }
+}

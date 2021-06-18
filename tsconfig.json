@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "strict": true,
+    "allowJs": true,
+    "sourceMap": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "types": [
+      // "webpack-env",
+      "resize-observer-browser",
+    ],
+    "paths": {
+      "/@/*": ["src/*"],
+    },
+    "lib": [
+      "es5",
+      "es6",
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost",
+    ],
+    "outDir": "./dist/",
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/**/*.d.ts", "src/components/TreeBranch.vue", "src/components/TreeBody.vue", "src/components/Tree.vue",
+  ],
+  "exclude": [
+    "node_modules",
+  ]
+}
