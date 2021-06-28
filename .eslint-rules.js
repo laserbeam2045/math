@@ -23,6 +23,9 @@ module.exports = {
   // ブロック(={})の先頭と末尾にはスペースをあける
   'block-spacing': 'error',
 
+  // オブジェクト(={})の先頭と末尾にはスペースをあける
+  'object-curly-spacing': ['error', 'always'],
+
   // 変数名は全てcamelCase
   'camelcase': 'error',
 
@@ -49,17 +52,17 @@ module.exports = {
 
   // オブジェクトのコロンの前後にスペースをあけるかどうか。
   // FIXME
-  'key-spacing': ['warn', {
-    'multiLine': {            // 複数行のvalueの場合
-      'beforeColon': false,   // コロンの前はスペースなし
-      'afterColon' : true,    // コロンの後はスペースあり
-    },
-    'align': {                // 一行のvalueが、複数行続く場合
-      'beforeColon': false,   // コロンの前はスペースなし(例外あり)
-      'afterColon' : true,    // コロンの後はスペースあり
-      'on'         : 'colon', // コロンを最長の位置に合わせる
-    },
-  }],
+  // 'key-spacing': ['warn', {
+  //   'multiLine': {            // 複数行のvalueの場合
+  //     'beforeColon': false,   // コロンの前はスペースなし
+  //     'afterColon' : true,    // コロンの後はスペースあり
+  //   },
+  //   'align': {                // 一行のvalueが、複数行続く場合
+  //     'beforeColon': false,   // コロンの前はスペースなし(例外あり)
+  //     'afterColon' : true,    // コロンの後はスペースあり
+  //     'on'         : 'colon', // コロンを最長の位置に合わせる
+  //   },
+  // }],
 
   // ifやtryステートメントの前後にスペースが必要かどうか
   'keyword-spacing': ['error', {
