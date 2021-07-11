@@ -280,10 +280,14 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 html, body {
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
 }
 
 * {
@@ -308,7 +312,8 @@ legend {
 }
 
 #top {
-  max-height: 90vh;
+  width: 100%;
+  height: 100%;
   padding: 5px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #2c3e50;
@@ -316,9 +321,10 @@ legend {
   -moz-osx-font-smoothing: grayscale;
   @include overflowScrolling;
 
-  // > fieldset {
-  //   margin: 5px 10px 10px 5px;
-  // }
+  > fieldset {
+    width: auto;
+    height: auto;
+  }
 }
 
 table {

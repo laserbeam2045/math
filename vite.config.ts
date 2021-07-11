@@ -1,13 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+import dotenv from 'dotenv'
+
+const { parsed } = dotenv.config()
+const {
+  VITE_APP_MY_HOST,
+  VITE_APP_MY_PORT,
+} = parsed
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   server: {
-    // host: '10.4.1.155',
-    host: '192.168.3.17',
-    port: 5555,
+    host: VITE_APP_MY_HOST,
+    port: Number(VITE_APP_MY_PORT),
   },
   css: {
     preprocessorOptions: {
@@ -15,5 +22,8 @@ export default defineConfig({
         additionalData: '@import "src/assets/scss/common.scss";',
       },
     },
+  },
+  build: {
+    outDir: 'docs',
   },
 })
