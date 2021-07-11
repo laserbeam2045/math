@@ -16,6 +16,8 @@
     "baseUrl": ".",
     "types": [
       // "webpack-env",
+      "node",
+      "webpack-env",
       "resize-observer-browser",
     ],
     "paths": {
@@ -35,7 +37,7 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/**/*.d.ts", "src/components/TreeBranch.vue", "src/components/TreeBody.vue", "src/components/Tree.vue",
+    "src/**/*.d.ts",
   ],
   "exclude": [
     "node_modules",

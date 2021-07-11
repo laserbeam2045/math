@@ -1,0 +1,41 @@
+/* Setting Layer */
+
+/* black */
+$black: #000;
+$verified-black: #242424;
+$black-dark-grey: #363636;
+
+/* grey */
+$grey: #808080;
+$violet-powder: #c6cad8; // border
+$ghost-white: #f7f8fc; // background
+$lavender-blush: #ffeff5; // input[type="text"].error
+
+/* white */
+$white: #fff;
+$white-dr-white: #fafafa;
+
+/* blue */
+$denim: #253fb4;
+$cold-lips: #9caae8;
+
+/* green */
+
+/* red */
+$infra-red: #fb436f;
+$lifeguard: #e20000;
+
+/* shadow color */
+$black-shadow: rgba(0, 0, 0, 0.1);
+
+// コンテンツをスクロールさせたいコンテナ要素に指定する
+// 参考：https://shanabrian.com/web/css3/overflow-scrolling.php
+@mixin overflowScrolling {
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+
+  & > * {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
