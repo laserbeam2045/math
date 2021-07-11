@@ -1,5 +1,6 @@
 <template>
   <input
+    ref="inputRef"
     class="app-input-text"
     :class="{ error }"
     :type="type"
@@ -12,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   model: {
@@ -59,7 +60,11 @@ export default defineComponent({
       emit('update:modelValue', element.value)
     }
 
-    return { handleInput }
+    const inputRef = ref<HTMLInputElement | null>(null)
+
+    const focus = () => (inputRef.value as HTMLInputElement).focus()
+
+    return { inputRef, handleInput, focus }
   },
 })
 </script>

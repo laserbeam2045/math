@@ -1,12 +1,7 @@
 <template>
   <form @submit.prevent="submit">
     <fieldset>
-      <legend>データの分析</legend>
-
-      <Chart
-        :srcData="display.numbers"
-        :labels="display.labels"
-      />
+      <legend>データ分析</legend>
 
       <table v-if="display.n">
         <tr>
@@ -68,7 +63,7 @@
       <fieldset>
         <legend>概要</legend>
         <label>
-          <span>項数</span>：{{ display.n }}
+          <span>標本数</span>：{{ display.n }}
         </label>
         <label>
           <span>分散</span>：{{ display.variance }}
@@ -91,11 +86,19 @@
         </label>
       </fieldset>
 
+      <div class="chart">
+        <Chart
+          :srcData="display.numbers"
+          :labels="display.labels"
+        />
+      </div>
+
       <label class="input">
-        <span>入力</span>：
         <div class="box">
           <AppInputText
+            ref="inputRef"
             v-model:modelValue="state.input"
+            placeholder="数字を入力！"
             class="input"
           />
           <AppButton
@@ -111,7 +114,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from 'vue'
+import { defineComponent, reactive, ref, computed } from 'vue'
 import AppInputText from './components/AppInputText.vue'
 import Chart from './components/Chart.vue'
 import AppButton from './components/AppButton.vue'
@@ -166,7 +169,7 @@ export default defineComponent({
     // 昇順に並べ替えたもの
     const sortedData = computed(() => state.numbers.concat().sort((a, b) => a - b))
 
-    // 項数
+    // 標本数
     const n = computed(() => state.numbers.length)
 
     const labels = computed(() => (
@@ -253,8 +256,12 @@ export default defineComponent({
       standardDeviation: round(standardDeviation.value),
     }))
 
+    const inputRef = ref<InstanceType<typeof AppInputText> | null>(null)
+
     const submit = () => {
       const input = state.input.trim()
+      inputRef.value?.focus()
+
       if (isNumeric(input)) {
         state.numbers.push(Number(input))
         state.input = ''
@@ -262,10 +269,10 @@ export default defineComponent({
     }
 
     const eventListener = {
-      [MOUSE_TOUCH_EVENT.START]: submit,
+      [MOUSE_TOUCH_EVENT.START + 'Prevent']: submit,
     }
 
-    return { state, display, eventListener, isMinus, submit }
+    return { state, display, inputRef, eventListener, isMinus, submit }
   },
 })
 </script>
@@ -291,8 +298,14 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+> fieldset {
+  width: 80vw;
+  height: 90vh;
+  @include overflowScrolling;
+}
+
 fieldset {
-  padding: 16px;
+  padding: 8px;
   color: #60627a;
   border-color: #60627a;
 
@@ -338,8 +351,12 @@ fieldset {
   fieldset {
     display: inline-block;
     min-width: 180px;
+    margin-top: 8px;
+    margin-right: 8px;
+  }
+
+  .chart {
     margin-top: 16px;
-    margin-right: 16px;
   }
 
   > .input {
@@ -359,22 +376,26 @@ fieldset {
       width: 70px;
       color: black;
       text-align: center;
+      white-space: nowrap;
     }
 
     > .box {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      flex-shrink: 1;
+      align-content: center;
+      align-items: center;
       width: 100%;
+      max-width: 300px;
 
       .input {
-        flex-shrink: 1;
         width: 100%;
       }
+      .button {
+        width: 150px;
+        margin-left: 8px;
+      }
     }
-  }
-
-  .button {
-    margin-top: 16px;
   }
 }
 </style>

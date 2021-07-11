@@ -84,21 +84,21 @@ export default defineComponent({
       responsive: true,
       plugins: {
         legend: {
-          position: 'top',
+          position: 'none',
         },
         title: {
-          display: true,
-          text: 'Bar Chart',
+          display: false,
+          text: 'はうチャート',
         },
       },
     })
 
-    const testData = computed<ChartData<'doughnut'>>(() => ({
+    const testData = computed<ChartData<'bar'>>(() => ({
       labels: props.labels,
       // category: 'aaa',
       datasets: [
         {
-          label: '# something',
+          // label: '',
           data: (props.srcData as number[]),
           backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
         },
