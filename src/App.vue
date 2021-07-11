@@ -98,11 +98,14 @@
             v-model:modelValue="state.input"
             class="input"
           />
+          <AppButton
+            class="button -fill -night -bold"
+            v-on="eventListener"
+          >
+            OK
+          </AppButton>
         </div>
       </label>
-      <!-- <AppButton class="button -fill -night -bold">
-        OK
-      </AppButton> -->
     </fieldset>
   </form>
 </template>
@@ -111,7 +114,7 @@
 import { defineComponent, reactive, computed } from 'vue'
 import AppInputText from './components/AppInputText.vue'
 import Chart from './components/Chart.vue'
-// import AppButton from './components/AppButton.vue'
+import AppButton from './components/AppButton.vue'
 
 // タッチイベントのサポートの有無
 export const IS_SUPPORT_TOUCH = 'ontouchend' in document
@@ -129,7 +132,7 @@ export default defineComponent({
   components: {
     Chart,
     AppInputText,
-    // AppButton,
+    AppButton,
   },
   setup() {
     const numbers: number[] = []
@@ -258,7 +261,11 @@ export default defineComponent({
       }
     }
 
-    return { state, display, MOUSE_TOUCH_EVENT, isMinus, submit }
+    const eventListener = {
+      [MOUSE_TOUCH_EVENT.START]: submit,
+    }
+
+    return { state, display, eventListener, isMinus, submit }
   },
 })
 </script>
@@ -331,7 +338,6 @@ fieldset {
   fieldset {
     display: inline-block;
     min-width: 180px;
-    // height: 150px;
     margin-top: 16px;
     margin-right: 16px;
   }
