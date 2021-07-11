@@ -13,7 +13,9 @@
           <th
             v-for="(data, index) in display.labels"
             :key="`h-${data}-${index}`"
+            :data-idx="index"
             class="heading"
+            v-on="thEventListener"
           >
             {{ data }}
           </th>
@@ -264,7 +266,7 @@ export default defineComponent({
 
     const submit = () => {
       const input = state.input.trim()
-      // inputRef.value?.focus()
+      inputRef.value?.focus()
 
       if (isNumeric(input)) {
         state.numbers.push(Number(input))
@@ -278,8 +280,35 @@ export default defineComponent({
     const eventListener = {
       [MOUSE_TOUCH_EVENT.END]: submit,
     }
+    const thEventListener = {
+      [MOUSE_TOUCH_EVENT.START]: (event: Event) => {
+        if (event?.target) {
+          const { idx } = (event.target as HTMLElement).dataset
+          if (typeof idx === 'string') {
+            question1(Number(idx))
+          }
+        }
+      },
+    }
 
-    return { state, display, inputRef, inputEventListener, eventListener, isMinus, submit }
+    const question1 = (idx: number) => {
+      console.log(123)
+      if (window.confirm('Delete this?')) {
+        state.numbers.splice(idx, 1)
+      } else {
+        question2(idx)
+      }
+    }
+    const question2 = (idx: number) => {
+      if (window.confirm('Change this?')) {
+        const num = window.prompt('数字を入力！')
+        if (num !== null && isNumeric(num)) {
+          state.numbers.splice(idx, 1, Number(num))
+        }
+      }
+    }
+
+    return { state, display, inputRef, thEventListener, inputEventListener, eventListener, isMinus, submit }
   },
 })
 </script>
