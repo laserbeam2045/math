@@ -30,7 +30,7 @@
           <td
             v-for="(data, index) in display.numbers"
             :key="`h-${data}-${index}`"
-            :class="{ minus: data < 0 }"
+            :class="{ minus: isMinus(data) }"
           >
             {{ data }}
           </td>
@@ -43,7 +43,7 @@
           <td
             v-for="(data, index) in display.deviation"
             :key="`i-${data}-${index}`"
-            :class="{ minus: data < 0 }"
+            :class="{ minus: isMinus(data) }"
           >
             {{ data }}
           </td>
@@ -56,7 +56,7 @@
           <td
             v-for="(data, index) in display.deviationValue"
             :key="`j-${data}-${index}`"
-            :class="{ minus: data < 0 }"
+            :class="{ minus: isMinus(data) }"
           >
             {{ data }}
           </td>
@@ -151,6 +151,10 @@ export default defineComponent({
     // 数値(数字)かどうか
     const isNumeric = (data: number | string): boolean =>
       !!(typeof(data) === 'number' || data.match(/^[0-9０-９]+(\.[0-9０-９]+)?$/))
+
+    // 負の値かどうか
+    const isMinus = (data: number | null): boolean =>
+      data !== null && data < 0
 
     // 四捨五入
     const round = (num: number | null, digit = 2) =>
@@ -254,7 +258,7 @@ export default defineComponent({
       }
     }
 
-    return { state, display, MOUSE_TOUCH_EVENT, submit }
+    return { state, display, MOUSE_TOUCH_EVENT, isMinus, submit }
   },
 })
 </script>
