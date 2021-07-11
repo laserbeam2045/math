@@ -263,7 +263,7 @@ export default defineComponent({
 
     const submit = () => {
       const input = state.input.trim()
-      inputRef.value?.focus()
+      // inputRef.value?.focus()
 
       if (isNumeric(input)) {
         state.numbers.push(Number(input))
