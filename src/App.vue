@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="submit">
+  <form
+    id="top"
+    @submit.prevent="submit"
+  >
     <fieldset>
       <legend>データ分析</legend>
 
@@ -61,28 +64,28 @@
       </table>
 
       <fieldset>
-        <legend>概要</legend>
+        <legend>分散・標準偏差</legend>
         <label>
-          <span>標本数</span>：{{ display.n }}
+          <span>標本数</span>: {{ display.n }}
         </label>
         <label>
-          <span>分散</span>：{{ display.variance }}
+          <span>分散</span>: {{ display.variance }}
         </label>
         <label>
-          <span>標準偏差</span>：{{ display.standardDeviation }}
+          <span>標準偏差</span>: {{ display.standardDeviation }}
         </label>
       </fieldset>
 
       <fieldset>
         <legend>代表値</legend>
         <label>
-          <span>平均値</span>：{{ display.average }}
+          <span>平均値</span>: {{ display.average }}
         </label>
         <label>
-          <span>中央値</span>：{{ display.median }}
+          <span>中央値</span>: {{ display.median }}
         </label>
         <label>
-          <span>最頻値</span>：{{ display.mode }}
+          <span>最頻値</span>: {{ display.mode }}
         </label>
       </fieldset>
 
@@ -289,112 +292,108 @@ html, body {
   margin: 0;
 }
 
-#app {
-  margin-top: 60px;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
-  text-align: center;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-> fieldset {
-  width: 80vw;
-  height: 90vh;
-  @include overflowScrolling;
-}
-
 fieldset {
+  display: inline-block;
+  min-width: 180px;
   padding: 8px;
+  margin-top: 8px;
+  margin-right: 8px;
   color: #60627a;
   border-color: #60627a;
+}
 
-  legend {
-    padding: 0 8px;
+legend {
+  padding: 0 8px;
+  color: black;
+}
+
+#top {
+  max-height: 90vh;
+  padding: 5px;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: #2c3e50;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @include overflowScrolling;
+
+  // > fieldset {
+  //   margin: 5px 10px 10px 5px;
+  // }
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  .heading {
+    background: #d4edF8;
+  }
+  .empty {
+    width: 1px;
+    padding: 0;
+    padding-left: 1px;
+  }
+  .slash {
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJ3aWR0aDoxMDAlO2hlaWdodDoxMDAlOyI+PGxpbmUgeDE9IjEwMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSIgc3R5bGU9InN0cm9rZTogIzMzMzMzMztzdHJva2Utd2lkdGg6IDE7Ij48L2xpbmU+PC9zdmc+');
+  }
+  th {
+    padding: 2px 8px;
+    white-space: nowrap;
+    border: 2px solid #60627a;
+  }
+  th:first-child {
+    width: 70px;
+  }
+  th:last-child {
+    width: 60px;
+  }
+  td {
+    box-sizing: border-box;
+    padding: 3px 8px;
+    text-align: center;
+    border: 2px solid #60627a;
+  }
+  td.minus {
+    color: #db7584;
+  }
+}
+
+.chart {
+  margin-top: 16px;
+}
+
+label {
+  display: flex;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-start;
+
+  > span {
+    display: block;
+    flex-shrink: 0;
+    width: 65px;
     color: black;
+    text-align: center;
+    white-space: nowrap;
   }
 
-  table {
-    border-collapse: collapse;
-
-    .heading {
-      background: #d4edF8;
-    }
-    .empty {
-      width: 3px;
-      padding: 0;
-    }
-    .slash {
-      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJ3aWR0aDoxMDAlO2hlaWdodDoxMDAlOyI+PGxpbmUgeDE9IjEwMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSIgc3R5bGU9InN0cm9rZTogIzMzMzMzMztzdHJva2Utd2lkdGg6IDE7Ij48L2xpbmU+PC9zdmc+');
-    }
-    th {
-      padding: 2px 8px;
-      border: 2px solid #60627a;
-    }
-    th:first-child {
-      width: 70px;
-    }
-    th:last-child {
-      width: 60px;
-    }
-    td {
-      box-sizing: border-box;
-      padding: 3px 8px;
-      text-align: center;
-      border: 2px solid #60627a;
-    }
-    td.minus {
-      color: #db7584;
-    }
-  }
-
-  fieldset {
-    display: inline-block;
-    min-width: 180px;
-    margin-top: 8px;
-    margin-right: 8px;
-  }
-
-  .chart {
-    margin-top: 16px;
-  }
-
-  > .input {
-    margin-top: 16px;
-  }
-
-  > label {
+  > .box {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: row;
+    flex-shrink: 1;
     align-content: center;
     align-items: center;
-    justify-content: flex-start;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 8px;
 
-    > span {
-      display: block;
-      flex-shrink: 0;
-      width: 70px;
-      color: black;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    > .box {
-      display: flex;
-      flex-direction: row;
-      flex-shrink: 1;
-      align-content: center;
-      align-items: center;
+    .input {
       width: 100%;
-      max-width: 300px;
-
-      .input {
-        width: 100%;
-      }
-      .button {
-        width: 150px;
-        margin-left: 8px;
-      }
+    }
+    .button {
+      width: 150px;
+      margin-left: 8px;
     }
   }
 }
