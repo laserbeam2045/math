@@ -103,6 +103,7 @@
             v-model:modelValue="state.input"
             placeholder="数字を入力！"
             class="input"
+            v-on="inputEventListener"
           />
           <AppButton
             class="button -fill -night -bold"
@@ -271,11 +272,14 @@ export default defineComponent({
       }
     }
 
+    const inputEventListener = {
+      [MOUSE_TOUCH_EVENT.START]: () => inputRef.value?.focus(),
+    }
     const eventListener = {
-      [MOUSE_TOUCH_EVENT.START + 'Prevent']: submit,
+      [MOUSE_TOUCH_EVENT.END]: submit,
     }
 
-    return { state, display, inputRef, eventListener, isMinus, submit }
+    return { state, display, inputRef, inputEventListener, eventListener, isMinus, submit }
   },
 })
 </script>
