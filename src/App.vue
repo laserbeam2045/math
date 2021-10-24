@@ -63,6 +63,19 @@
           <td class="empty" />
           <td class="slash" />
         </tr>
+        <!-- <tr>
+          <th>正則値</th>
+          <td class="empty" />
+          <td
+            v-for="(data, index) in display.normalizedValues"
+            :key="`j-${data}-${index}`"
+            :class="{ minus: isMinus(data) }"
+          >
+            {{ round(data, 2) }}
+          </td>
+          <td class="empty" />
+          <td class="slash" />
+        </tr> -->
       </table>
 
       <fieldset>
@@ -88,6 +101,13 @@
         </label>
         <label>
           <span>最頻値</span>: {{ display.mode }}
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>？？？</legend>
+        <label>
+          <span>x</span>: {{ display.xxx }}
         </label>
       </fieldset>
 
@@ -122,8 +142,10 @@
 <script lang="ts">
 import { defineComponent, reactive, ref, computed } from 'vue'
 import AppInputText from './components/AppInputText.vue'
-import Chart from './components/Chart.vue'
 import AppButton from './components/AppButton.vue'
+import Chart from './components/Chart.vue'
+
+import { add, mul, normalize } from './utils/calc'
 
 // タッチイベントのサポートの有無
 export const IS_SUPPORT_TOUCH = 'ontouchend' in document
@@ -183,14 +205,10 @@ export default defineComponent({
     ))
 
     // 合計値
-    const totalValue = computed(() => (
-      n.value ? state.numbers.reduce((acc, cur) => acc + cur) : 0
-    ))
+    const totalValue = computed(() => n.value ? add(state.numbers) : 0)
 
     // 偏差の合計
-    const totalDeviation = computed(() => (
-      n.value ? deviation.value.reduce((acc, cur) => acc + cur, 0) : 0
-    ))
+    const totalDeviation = computed(() => n.value ? add(deviation.value) : 0)
 
     // 平均値 μx
     const average = computed(() => n.value ? totalValue.value / n.value : null)
@@ -246,6 +264,11 @@ export default defineComponent({
       })
     ))
 
+    // 正則化した配列
+    const normalizedValues = computed(() => n.value ? normalize(state.numbers) : [])
+
+    const xxx = computed(() => n.value ? mul(normalizedValues.value) : null)
+
     const display = computed(() => ({
       labels: labels.value,
       numbers: state.numbers,
@@ -256,6 +279,8 @@ export default defineComponent({
       totalDeviation: round(totalDeviation.value),
       average: round(average.value),
       median: round(median.value),
+      normalizedValues: normalizedValues.value,
+      xxx: xxx.value,
       n: n.value,
       mode: mode.value,
       variance: round(variance.value),
@@ -308,7 +333,7 @@ export default defineComponent({
       }
     }
 
-    return { state, display, inputRef, thEventListener, inputEventListener, eventListener, isMinus, submit }
+    return { state, display, inputRef, thEventListener, inputEventListener, eventListener, isMinus, submit, round }
   },
 })
 </script>
